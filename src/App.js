@@ -55,7 +55,6 @@ class AddOption extends React.Component {
 class Options extends React.Component {
 
   handleRemoveAll() {
-    //alert('removed');
     console.log(this.props.options);
   }
 
