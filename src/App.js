@@ -5,7 +5,7 @@ class App extends React.Component {
     super(props);
     this.handleRemoveAll = this.handleRemoveAll.bind(this);
     this.handleAddOptions = this.handleAddOptions.bind(this);
-
+    this.handleRemoveOption = this.handleRemoveOption.bind(this);
     this.state = {
       options: []
     };
@@ -15,6 +15,12 @@ class App extends React.Component {
     this.setState({ options: [] });
   }
 
+  handleRemoveOption(optionToRemove) {
+    this.setState((prevState) => ({
+      options: prevState.options.filter((option) => option !== optionToRemove)
+    }));
+  }
+
   handleAddOptions(option) {
 
     if (!option) {                                           //if there is no string
@@ -22,12 +28,7 @@ class App extends React.Component {
     } else if (this.state.options.indexOf(option) > 1) {
       return 'This option already exists';
     }
-
-    this.setState((prevState) => {
-      return {
-        options: prevState.options.concat([option])
-      };
-    });
+    this.setState((prevState) => ({ options: prevState.options.concat([option]) }));
   }
 
   render() {
@@ -38,6 +39,7 @@ class App extends React.Component {
         <Options
           options={this.state.options}
           handleRemoveAll={this.handleRemoveAll}
+          handleRemoveOption={this.handleRemoveOption}
         />
       </div>
     );
@@ -97,7 +99,11 @@ class Options extends React.Component {
         <button onClick={this.props.handleRemoveAll}>Remove All</button>
         {
           this.props.options.map((option, i) =>
-            (<Option key={i} optionText={option} />))
+            (<Option
+              key={i}
+              optionText={option}
+              handleRemoveOption={this.props.handleRemoveOption}
+            />))
         }
       </div>
     );
@@ -110,6 +116,12 @@ class Option extends React.Component {
       <div>
         <ul>
           <li>{this.props.optionText}</li>
+          
+          <button onClick={() => {
+            this.props.handleRemoveOption(this.props.optionText)
+          }}>
+            Remove
+          </button>
         </ul>
       </div>
     );
