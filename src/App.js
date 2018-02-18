@@ -11,6 +11,17 @@ class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    //console.log('component mounting');
+    const options = JSON.parse(localStorage.getItem('options'));
+    this.setState({ options });
+  }
+
+  componentDidUpdate() {
+    // console.log('component updated or saving data');
+    localStorage.setItem('options', JSON.stringify(this.state.options));
+  }
+
   handleRemoveAll() {
     this.setState({ options: [] });
   }
@@ -97,6 +108,7 @@ class Options extends React.Component {
     return (
       <div>
         <button onClick={this.props.handleRemoveAll}>Remove All</button>
+        {this.props.options.length === 0 && <p>Please add list to get started</p>}
         {
           this.props.options.map((option, i) =>
             (<Option
@@ -116,7 +128,7 @@ class Option extends React.Component {
       <div>
         <ul>
           <li>{this.props.optionText}</li>
-          
+
           <button onClick={() => {
             this.props.handleRemoveOption(this.props.optionText)
           }}>
