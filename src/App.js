@@ -3,26 +3,39 @@ import React from 'react';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.handleRemoveAll=this.handleRemoveAll.bind(this);
+    this.handleRemoveAll = this.handleRemoveAll.bind(this);
+    this.handleAddOptions = this.handleAddOptions.bind(this);
+
     this.state = {
       options: ['one', 'two', 'three', 'four']
     };
   }
-  handleRemoveAll(){
+
+  handleRemoveAll() {
     this.setState(() => {
-      return { 
+      return {
         options: []
       };
-      });
+    });
   }
+
+  handleAddOptions(option) {
+    //console.log(option);
+    this.setState((prevState) => {
+      return {
+        options: prevState.options.concat([option])
+      };
+    });
+  }
+
   render() {
     return (
       <div>
         <Header />
-        <AddOption />
-        <Options 
-        options={this.state.options}
-        handleRemoveAll={this.handleRemoveAll} />
+        <AddOption handleAddOptions={this.handleAddOptions} />
+        <Options
+          options={this.state.options}
+          handleRemoveAll={this.handleRemoveAll} />
       </div>
     );
   }
@@ -44,8 +57,12 @@ class AddOption extends React.Component {
     e.preventDefault();
 
     const option = e.target.elements.option.value.trim(); //trim will fix spaces
-    console.log(option);
+    //console.log(option);
+    if (option) {
+      this.props.handleAddOptions(option);
+    }
   }
+
   handleChange(e) {
     this.setState({ text: e.target.value });
   }
@@ -63,7 +80,6 @@ class AddOption extends React.Component {
 }
 
 class Options extends React.Component {
-
   render() {
     return (
       <div>
@@ -71,7 +87,6 @@ class Options extends React.Component {
         {
           this.props.options.map((option, i) =>
             (<Option key={i} optionText={option} />))
-
         }
       </div>
     );
