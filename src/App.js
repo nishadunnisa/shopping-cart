@@ -7,20 +7,22 @@ class App extends React.Component {
     this.handleAddOptions = this.handleAddOptions.bind(this);
 
     this.state = {
-      options: ['one', 'two', 'three', 'four']
+      options: []
     };
   }
 
   handleRemoveAll() {
-    this.setState(() => {
-      return {
-        options: []
-      };
-    });
+    this.setState({ options: [] });
   }
 
   handleAddOptions(option) {
-    //console.log(option);
+
+    if (!option) {                                           //if there is no string
+      return 'Enter valid option to add list';
+    } else if (this.state.options.indexOf(option) > 1) {
+      return 'This option already exists';
+    }
+
     this.setState((prevState) => {
       return {
         options: prevState.options.concat([option])
@@ -35,7 +37,8 @@ class App extends React.Component {
         <AddOption handleAddOptions={this.handleAddOptions} />
         <Options
           options={this.state.options}
-          handleRemoveAll={this.handleRemoveAll} />
+          handleRemoveAll={this.handleRemoveAll}
+        />
       </div>
     );
   }
@@ -53,14 +56,21 @@ class Header extends React.Component {
 
 class AddOption extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.state = {
+      error: undefined
+    };
+  }
+
   handleFormSubmit(e) {
     e.preventDefault();
 
     const option = e.target.elements.option.value.trim(); //trim will fix spaces
-    //console.log(option);
-    if (option) {
-      this.props.handleAddOptions(option);
-    }
+    const error = this.props.handleAddOptions(option);
+    this.setState({ error: error });
+
   }
 
   handleChange(e) {
@@ -70,7 +80,8 @@ class AddOption extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleFormSubmit.bind(this)}>
+        {this.state.error && <p>{this.state.error}</p>}
+        <form onSubmit={this.handleFormSubmit}>
           <input type="text" name="option" onChange={(e) => this.handleChange(e)} />
           <button>Add List</button>
         </form>
