@@ -3,16 +3,26 @@ import React from 'react';
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.handleRemoveAll=this.handleRemoveAll.bind(this);
     this.state = {
       options: ['one', 'two', 'three', 'four']
     };
+  }
+  handleRemoveAll(){
+    this.setState(() => {
+      return { 
+        options: []
+      };
+      });
   }
   render() {
     return (
       <div>
         <Header />
         <AddOption />
-        <Options options={this.state.options} />
+        <Options 
+        options={this.state.options}
+        handleRemoveAll={this.handleRemoveAll} />
       </div>
     );
   }
@@ -54,14 +64,10 @@ class AddOption extends React.Component {
 
 class Options extends React.Component {
 
-  handleRemoveAll() {
-    console.log(this.props.options);
-  }
-
   render() {
     return (
       <div>
-        <button onClick={this.handleRemoveAll.bind(this)}>Remove All</button>
+        <button onClick={this.props.handleRemoveAll}>Remove All</button>
         {
           this.props.options.map((option, i) =>
             (<Option key={i} optionText={option} />))
