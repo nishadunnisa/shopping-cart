@@ -1,0 +1,74 @@
+body {
+    justify-content: center;
+    display: flex;
+    background-color: palegreen;
+}
+
+.form>form>input {
+    padding: 8px 0px 8px 0px;
+    border: none;
+    width: 100%;
+    text-align: center;
+    border-bottom: 2px solid gray;
+    font-size: large;
+}
+
+input:focus {
+    outline: none;
+}
+
+.remove-button:after {
+    content: 'x';
+    font-size: large;
+}
+
+.remove-button {
+    float: right;
+    outline: none;
+    border: none;
+    background-color: palegreen;
+    color: red;
+    cursor: pointer;
+}
+
+.remove-button:hover {
+    background-color: #fff;
+    color: royalblue;
+}
+
+.option-list>ul {
+    margin: 0%;
+    padding: 0%;
+    text-align: center;
+    background-color: royalblue;
+    color: white;
+    font-size: large;
+}
+
+.option-list>ul>li {
+    list-style: none;
+    padding: 8px 10px 8px 10px;
+    border-bottom: 1px solid black;
+}
+
+.options>p {
+    font-size: larger;
+    padding: 8px 10px 8px 10px;
+}
+
+.footer {
+    padding: 8px 0px 8px 0px;
+    margin: 10% 0% 0% 0%;
+}
+
+.remove-all {
+    background-color: palevioletred;
+    padding: 3% 2% 3% 2%;
+    font-size: small;
+    font-weight: bold;
+    border-radius: 10%;
+    border: none;
+    color: white;
+    cursor: pointer;
+    outline: none;
+}

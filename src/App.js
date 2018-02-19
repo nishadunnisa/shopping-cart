@@ -51,9 +51,9 @@ class App extends React.Component {
         <AddOption handleAddOptions={this.handleAddOptions} />
         <Options
           options={this.state.options}
-          handleRemoveAll={this.handleRemoveAll}
           handleRemoveOption={this.handleRemoveOption}
         />
+        <Footer handleRemoveAll={this.handleRemoveAll} />
       </div>
     );
   }
@@ -94,11 +94,12 @@ class AddOption extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="form">
         {this.state.error && <p>{this.state.error}</p>}
         <form onSubmit={this.handleFormSubmit}>
-          <input type="text" name="option" onChange={(e) => this.handleChange(e)} />
-          <button>Add List</button>
+          <input type="text" name="option" placeholder="Add your list here"
+            onChange={(e) => this.handleChange(e)}
+          />
         </form>
       </div>
     );
@@ -108,8 +109,7 @@ class AddOption extends React.Component {
 class Options extends React.Component {
   render() {
     return (
-      <div>
-        <button onClick={this.props.handleRemoveAll}>Remove All</button>
+      <div className="options">
         {this.props.options.length === 0 && <p>Please add list to get started</p>}
         {
           this.props.options.map((option, i) =>
@@ -128,18 +128,28 @@ class Options extends React.Component {
 class Option extends React.Component {
   render() {
     return (
-      <div>
+      <div className="option-list">
         <ul>
-          <li>{this.props.optionText}</li>
+          <li>{this.props.optionText}
 
-          <button onClick={() => {
-            this.props.handleRemoveOption(this.props.optionText)
-          }}>
-            Remove
-          </button>
+            <button className="remove-button" onClick={() => {
+              this.props.handleRemoveOption(this.props.optionText)
+            }}>
+            </button>
+
+          </li>
         </ul>
       </div>
     );
+  }
+}
+class Footer extends React.Component {
+  render() {
+    return (
+      <div className="footer">
+        <button className="remove-all" onClick={this.props.handleRemoveAll}>Remove All</button>
+      </div>
+    )
   }
 }
 
