@@ -1,5 +1,7 @@
 import React from 'react';
 
+const randomKey = require('random-key');
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -113,6 +115,7 @@ class Options extends React.Component {
           this.props.options.map((option, i) =>
             (<Option
               key={i}
+              id={randomKey.generate()}
               optionText={option}
               handleRemoveOption={this.props.handleRemoveOption}
             />))
