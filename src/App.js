@@ -8,6 +8,7 @@ class App extends React.Component {
     this.handleRemoveAll = this.handleRemoveAll.bind(this);
     this.handleAddOptions = this.handleAddOptions.bind(this);
     this.handleRemoveOption = this.handleRemoveOption.bind(this);
+    this.handleSortOptions = this.handleSortOptions.bind(this);
     this.state = {
       options: []
     };
@@ -44,6 +45,13 @@ class App extends React.Component {
     this.setState((prevState) => ({ options: prevState.options.concat([option]) }));
   }
 
+  handleSortOptions() {
+    //console.log('sorting');
+    this.setState((prevState) => ({
+      options: prevState.options.sort()
+    }));
+  }
+
   render() {
     return (
       <div>
@@ -53,7 +61,10 @@ class App extends React.Component {
           options={this.state.options}
           handleRemoveOption={this.handleRemoveOption}
         />
-        <Footer handleRemoveAll={this.handleRemoveAll} />
+        <Footer
+          handleRemoveAll={this.handleRemoveAll}
+          handleSortOptions={this.handleSortOptions}
+        />
       </div>
     );
   }
@@ -147,7 +158,8 @@ class Footer extends React.Component {
   render() {
     return (
       <div className="footer">
-        <button className="remove-all" onClick={this.props.handleRemoveAll}>Remove All</button>
+        <button className="footer-button remove-all" onClick={this.props.handleRemoveAll}>Remove All</button>
+        <button className="footer-button sort-button" onClick={this.props.handleSortOptions}>Sort</button>
       </div>
     )
   }
