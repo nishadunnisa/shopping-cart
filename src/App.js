@@ -160,6 +160,7 @@ class Footer extends React.Component {
       <div className="footer">
         <button className="footer-button remove-all" onClick={this.props.handleRemoveAll}>Remove All</button>
         <button className="footer-button sort-button" onClick={this.props.handleSortOptions}>Sort</button>
+      
       </div>
     )
   }
