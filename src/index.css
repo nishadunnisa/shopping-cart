@@ -57,13 +57,13 @@ input:focus {
 }
 
 .footer {
-    padding: 8px 0px 8px 0px;
     margin: 10% 0% 0% 0%;
 }
 
-.remove-all {
+.footer-button {
+    margin: 0% 0% 0% 0%;
     background-color: palevioletred;
-    padding: 3% 2% 3% 2%;
+    padding: 3% 3% 3% 3%;
     font-size: small;
     font-weight: bold;
     border-radius: 10%;
