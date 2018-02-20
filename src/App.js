@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'; 
 
 const randomKey = require('random-key');
 
@@ -143,6 +144,9 @@ class Options extends React.Component {
 }
 Options.defaultProps = {
   options: []
+}
+Options.propTypes = {
+  options: PropTypes.array.isRequired
 }
 class Option extends React.Component {
   render() {
