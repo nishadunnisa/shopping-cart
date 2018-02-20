@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 
 const randomKey = require('random-key');
 
@@ -53,6 +53,7 @@ class App extends React.Component {
       options: prevState.options.sort()
     }));
   }
+
   handleEditing() {
     console.log('editing');
   }
@@ -127,7 +128,7 @@ class Options extends React.Component {
   render() {
     return (
       <div className="options">
-        {this.props.options.length === 0 && <p>Please add list to get started</p>}
+        {this.props.options && <p>Please add list to get started</p>}
         {
           this.props.options.map((option, i) =>
             (<Option
@@ -142,12 +143,15 @@ class Options extends React.Component {
     );
   }
 }
+
 Options.defaultProps = {
   options: []
 }
+
 Options.propTypes = {
   options: PropTypes.array.isRequired
 }
+
 class Option extends React.Component {
   render() {
     return (
@@ -173,13 +177,13 @@ class Option extends React.Component {
     );
   }
 }
+
 class Footer extends React.Component {
   render() {
     return (
       <div className="footer">
         <button className="footer-button remove-all" onClick={this.props.handleRemoveAll}>Remove All</button>
         <button className="footer-button sort-button" onClick={this.props.handleSortOptions}>Sort</button>
-
       </div>
     )
   }
