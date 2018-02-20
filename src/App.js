@@ -9,6 +9,7 @@ class App extends React.Component {
     this.handleAddOptions = this.handleAddOptions.bind(this);
     this.handleRemoveOption = this.handleRemoveOption.bind(this);
     this.handleSortOptions = this.handleSortOptions.bind(this);
+    this.handleEditing = this.handleEditing.bind(this);
     this.state = {
       options: []
     };
@@ -51,6 +52,9 @@ class App extends React.Component {
       options: prevState.options.sort()
     }));
   }
+  handleEditing() {
+    console.log('editing');
+  }
 
   render() {
     return (
@@ -60,6 +64,7 @@ class App extends React.Component {
         <Options
           options={this.state.options}
           handleRemoveOption={this.handleRemoveOption}
+          handleEditing={this.handleEditing}
         />
         <Footer
           handleRemoveAll={this.handleRemoveAll}
@@ -129,27 +134,37 @@ class Options extends React.Component {
               id={randomKey.generate()}
               optionText={option}
               handleRemoveOption={this.props.handleRemoveOption}
+              handleEditing={this.props.handleEditing}
             />))
         }
       </div>
     );
   }
 }
-
+Options.defaultProps = {
+  options: []
+}
 class Option extends React.Component {
   render() {
     return (
       <div className="option-list">
+
         <ul>
-          <li>{this.props.optionText}
+          <li>
+            <div onDoubleClick={this.props.handleEditing}>
 
-            <button className="remove-button" onClick={() => {
-              this.props.handleRemoveOption(this.props.optionText)
-            }}>
-            </button>
+              {this.props.optionText}
 
+              <button className="remove-button" onClick={() => {
+                this.props.handleRemoveOption(this.props.optionText)
+              }}>
+              </button>
+
+            </div>
           </li>
         </ul>
+
+
       </div>
     );
   }
@@ -160,7 +175,7 @@ class Footer extends React.Component {
       <div className="footer">
         <button className="footer-button remove-all" onClick={this.props.handleRemoveAll}>Remove All</button>
         <button className="footer-button sort-button" onClick={this.props.handleSortOptions}>Sort</button>
-      
+
       </div>
     )
   }
