@@ -121,7 +121,7 @@ class Options extends React.Component {
   render() {
     return (
       <div className="options">
-        {this.props.options.length === 0 && <p>Please add list to get started</p>}
+        
         {
           this.props.options.map((option, i) =>
             (<Option
