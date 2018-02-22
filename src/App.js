@@ -23,7 +23,7 @@ class App extends React.Component {
   }
 
   componentDidUpdate() {
-    // console.log('component updated or saving data');
+     console.log('component updated or saving data');
     localStorage.setItem('options', JSON.stringify(this.state.options));
   }
 
