@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 
 const randomKey = require('random-key');
 
@@ -12,12 +12,12 @@ class App extends React.Component {
     this.handleSortOptions = this.handleSortOptions.bind(this);
     this.handleEditing = this.handleEditing.bind(this);
     this.state = {
-      options: []
+      options: props.options
     };
   }
 
   componentDidMount() {
-    //console.log('component mounting');
+    console.log('component mounting');
     const options = JSON.parse(localStorage.getItem('options'));
     this.setState({ options });
   }
@@ -41,7 +41,7 @@ class App extends React.Component {
 
     if (!option) {                                           //if there is no string
       return 'Enter valid option to add list';
-    } else if (this.state.options.indexOf(option) > 1) {
+    } else if (this.state.options.indexOf(option) > -1) {
       return 'This option already exists';
     }
     this.setState((prevState) => ({ options: prevState.options.concat([option]) }));
@@ -76,6 +76,9 @@ class App extends React.Component {
     );
   }
 }
+App.defaultProps = {
+  options: []
+};
 
 class Header extends React.Component {
   render() {
@@ -103,6 +106,9 @@ class AddOption extends React.Component {
     const option = e.target.elements.option.value.trim(); //trim will fix spaces
     const error = this.props.handleAddOptions(option);
     this.setState({ error: error });
+    if (!error) {
+      e.target.elements.option.value = '';
+    }
 
   }
 
@@ -128,7 +134,7 @@ class Options extends React.Component {
   render() {
     return (
       <div className="options">
-        {this.props.options && <p>Please add list to get started</p>}
+        {this.props.options.length === 0 && <p>Please add list to get started</p>}
         {
           this.props.options.map((option, i) =>
             (<Option
@@ -144,13 +150,13 @@ class Options extends React.Component {
   }
 }
 
-Options.defaultProps = {
-  options: []
-}
+//Options.defaultProps = {
+//options: []
+//}
 
-Options.propTypes = {
-  options: PropTypes.array.isRequired
-}
+//Options.propTypes = {
+//options: PropTypes.array.isRequired
+//}
 
 class Option extends React.Component {
   render() {
