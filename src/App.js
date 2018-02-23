@@ -197,7 +197,7 @@ class Option extends React.Component {
               </button>
 
             </div>
-            <form >
+            
               <input type="text"
                 name="edit"
 
@@ -205,7 +205,7 @@ class Option extends React.Component {
                 onChange={(e) => this.handleEditingChange(e)}
                 onKeyDown={this.handleEditComplete}
               />
-            </form>
+            
           </li>
         </ul>
 
