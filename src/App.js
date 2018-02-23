@@ -154,18 +154,20 @@ class Option extends React.Component {
       editing: false
     }
   }
+
   componentDidMount() {
     this.setState({ editText: this.props.options });
   }
-  handleEditing(e) {
-  
-    this.setState({ editing: true, editText: this.props.options });
 
+  handleEditing(e) {
+    this.setState({ editing: true, editText: this.props.options });
   }
+
   handleEditingChange(e) {
     this.setState({ editText: e.target.value });
     console.log(e.target.value);
   }
+
   handleEditComplete(e) {
     if (e.keyCode === 13) {
       this.setState({ editing: false });
@@ -195,17 +197,15 @@ class Option extends React.Component {
                 this.props.handleRemoveOption(this.props.optionText)
               }}>
               </button>
-
             </div>
-            
-              <input type="text"
-                name="edit"
 
-                style={editStyle}
-                onChange={(e) => this.handleEditingChange(e)}
-                onKeyDown={this.handleEditComplete}
-              />
-            
+            <input type="text"
+              name="edit"
+              style={editStyle}
+              onChange={(e) => this.handleEditingChange(e)}
+              onKeyDown={this.handleEditComplete}
+            />
+
           </li>
         </ul>
 
