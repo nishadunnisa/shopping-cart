@@ -9,21 +9,26 @@ class App extends React.Component {
     this.handleRemoveAll = this.handleRemoveAll.bind(this);
     this.handleAddOptions = this.handleAddOptions.bind(this);
     this.handleRemoveOption = this.handleRemoveOption.bind(this);
-    this.handleSortOptions = this.handleSortOptions.bind(this);
-    this.handleEditing = this.handleEditing.bind(this);
     this.state = {
       options: props.options
     };
   }
 
   componentDidMount() {
+developer
+    //console.log('component mounting');
+    const options = JSON.parse(localStorage.getItem('options')) || [];
+    this.setState({ options });
+
+
     console.log('component mounting');
+master
     const options = JSON.parse(localStorage.getItem('options')) || [];
     this.setState({ options });
   }
 
   componentDidUpdate() {
-     console.log('component updated or saving data');
+    //console.log('component updated or saving data');
     localStorage.setItem('options', JSON.stringify(this.state.options));
   }
 
@@ -47,17 +52,6 @@ class App extends React.Component {
     this.setState((prevState) => ({ options: prevState.options.concat([option]) }));
   }
 
-  handleSortOptions() {
-    //console.log('sorting');
-    this.setState((prevState) => ({
-      options: prevState.options.sort()
-    }));
-  }
-
-  handleEditing() {
-    console.log('editing');
-  }
-
   render() {
     return (
       <div>
@@ -66,7 +60,6 @@ class App extends React.Component {
         <Options
           options={this.state.options}
           handleRemoveOption={this.handleRemoveOption}
-          handleEditing={this.handleEditing}
         />
         <Footer
           handleRemoveAll={this.handleRemoveAll}
@@ -136,13 +129,12 @@ class Options extends React.Component {
       <div className="options">
         {this.props.options && this.props.options.length === 0 && <p>Please add list to get started</p>}
         {
-          this.props.options.map((option, i) =>
+          this.props.options.sort().map((option, i) =>
             (<Option
               key={i}
               id={randomKey.generate()}
               optionText={option}
               handleRemoveOption={this.props.handleRemoveOption}
-              handleEditing={this.props.handleEditing}
             />))
         }
       </div>
@@ -159,13 +151,50 @@ Options.propTypes = {
 };
 
 class Option extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleEditing = this.handleEditing.bind(this);
+    this.handleEditingChange = this.handleEditingChange.bind(this);
+    this.handleEditComplete = this.handleEditComplete.bind(this);
+
+    this.state = {
+      editing: false
+    }
+  }
+  componentDidMount() {
+    this.setState({ editText: this.props.options });
+  }
+  handleEditing(e) {
+  
+    this.setState({ editing: true, editText: this.props.options });
+
+  }
+  handleEditingChange(e) {
+    this.setState({ editText: e.target.value });
+    console.log(e.target.value);
+  }
+  handleEditComplete(e) {
+    if (e.keyCode === 13) {
+      this.setState({ editing: false });
+    }
+  }
+
   render() {
+    const visibleStyle = {};
+    const editStyle = {};
+
+    if (this.state.editing) {
+      visibleStyle.display = "none";
+    } else {
+      editStyle.display = "none";
+    }
+
     return (
       <div className="option-list">
 
         <ul>
           <li>
-            <div onDoubleClick={this.props.handleEditing}>
+            <div style={visibleStyle} onDoubleClick={this.handleEditing}>
 
               {this.props.optionText}
 
@@ -175,6 +204,15 @@ class Option extends React.Component {
               </button>
 
             </div>
+            <form >
+              <input type="text"
+                name="edit"
+
+                style={editStyle}
+                onChange={(e) => this.handleEditingChange(e)}
+                onKeyDown={this.handleEditComplete}
+              />
+            </form>
           </li>
         </ul>
 
@@ -188,8 +226,10 @@ class Footer extends React.Component {
   render() {
     return (
       <div className="footer">
-        <button className="footer-button remove-all" onClick={this.props.handleRemoveAll}>Remove All</button>
-        <button className="footer-button sort-button" onClick={this.props.handleSortOptions}>Sort</button>
+        <button className="footer-button remove-all"
+          onClick={this.props.handleRemoveAll}
+        >Remove All
+        </button>
       </div>
     );
   }
