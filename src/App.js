@@ -15,7 +15,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-
     //console.log('component mounting');
     const options = JSON.parse(localStorage.getItem('options')) || [];
     this.setState({ options });
@@ -57,7 +56,6 @@ class App extends React.Component {
         />
         <Footer
           handleRemoveAll={this.handleRemoveAll}
-          handleSortOptions={this.handleSortOptions}
         />
       </div>
     );
@@ -209,8 +207,6 @@ class Option extends React.Component {
 
           </li>
         </ul>
-
-
       </div>
     );
   }
