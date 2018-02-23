@@ -15,14 +15,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-developer
+
     //console.log('component mounting');
-    const options = JSON.parse(localStorage.getItem('options')) || [];
-    this.setState({ options });
-
-
-    console.log('component mounting');
-master
     const options = JSON.parse(localStorage.getItem('options')) || [];
     this.setState({ options });
   }
