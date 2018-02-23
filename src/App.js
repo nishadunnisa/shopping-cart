@@ -15,7 +15,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-
     //console.log('component mounting');
     const options = JSON.parse(localStorage.getItem('options')) || [];
     this.setState({ options });
@@ -57,7 +56,6 @@ class App extends React.Component {
         />
         <Footer
           handleRemoveAll={this.handleRemoveAll}
-          handleSortOptions={this.handleSortOptions}
         />
       </div>
     );
@@ -155,18 +153,20 @@ class Option extends React.Component {
       editing: false
     }
   }
+
   componentDidMount() {
     this.setState({ editText: this.props.options });
   }
-  handleEditing(e) {
-  
-    this.setState({ editing: true, editText: this.props.options });
 
+  handleEditing(e) {
+    this.setState({ editing: true, editText: this.props.options });
   }
+
   handleEditingChange(e) {
     this.setState({ editText: e.target.value });
     console.log(e.target.value);
   }
+
   handleEditComplete(e) {
     if (e.keyCode === 13) {
       this.setState({ editing: false });
@@ -196,21 +196,17 @@ class Option extends React.Component {
                 this.props.handleRemoveOption(this.props.optionText)
               }}>
               </button>
-
             </div>
-            <form >
-              <input type="text"
-                name="edit"
 
-                style={editStyle}
-                onChange={(e) => this.handleEditingChange(e)}
-                onKeyDown={this.handleEditComplete}
-              />
-            </form>
+            <input type="text"
+              name="edit"
+              style={editStyle}
+              onChange={(e) => this.handleEditingChange(e)}
+              onKeyDown={this.handleEditComplete}
+            />
+
           </li>
         </ul>
-
-
       </div>
     );
   }
