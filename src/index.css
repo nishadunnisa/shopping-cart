@@ -2,14 +2,25 @@ body {
     justify-content: center;
     display: flex;
     background-color: palegreen;
-}
+    font-family: 'Indie Flower', cursive;
+    font-size: large;
 
+}
+.wrapper{
+    border: 5px solid palevioletred;
+    border-radius: 5%;
+    border-style: ridge;
+    padding: 0% 3% 5% 3%;
+    text-align: center;
+}
 .form>form>input {
     padding: 8px 0px 8px 0px;
     border: none;
     width: 100%;
     text-align: center;
-    border-bottom: 2px solid gray;
+    margin: 0% 0% 2% 0%;
+    border-bottom: 3px solid black;
+    border-bottom-style: dotted; 
     font-size: large;
 }
 
@@ -42,7 +53,8 @@ input:focus {
     text-align: center;
     background-color: royalblue;
     color: white;
-    font-size: large;
+    font-size: larger;
+    font-weight: bold;
 }
 
 .option-list>ul>li {
@@ -53,7 +65,7 @@ input:focus {
 
 .options>p {
     font-size: larger;
-    padding: 8px 10px 8px 10px;
+    
 }
 
 .footer {

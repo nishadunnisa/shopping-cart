@@ -47,7 +47,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="wrapper">
         <Header />
         <AddOption handleAddOptions={this.handleAddOptions} />
         <Options
@@ -193,7 +193,7 @@ class Option extends React.Component {
               {this.props.optionText}
 
               <button className="remove-button" onClick={() => {
-                this.props.handleRemoveOption(this.props.optionText)
+              this.props.handleRemoveOption(this.props.optionText)
               }}>
               </button>
             </div>
